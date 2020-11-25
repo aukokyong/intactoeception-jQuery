@@ -1,6 +1,7 @@
 const gameState = {
   currentPlayer: "O",
-  gameGrid: [
+  playerColor: "Red",
+  gameSubGrid: [
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", ""],
@@ -12,8 +13,8 @@ const gameState = {
     ["", "", "", "", "", "", "", "", ""],
   ],
 
-  gameGridMain: ["", "", "", "", "", "", "", "", ""],
-  gameGridMainAllow: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  gameMainGrid: ["", "", "", "", "", "", "", "", ""],
+  gameGridAllow: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
   winningCombination: [
     [0, 1, 2],
     [3, 4, 5],
@@ -42,9 +43,9 @@ const onClickCell = () => {
     let mainCellPos = cell.attr("data-mainCell");
     let subCellPos = cell.attr("data-subCell");
 
-    let isMainCellEmpty = gameState.gameGridMain[mainCellPos];
-    let isSubCellEmpty = gameState.gameGrid[mainCellPos][subCellPos];
-    let allowableCell = gameState.gameGridMainAllow[mainCellPos];
+    let isMainCellEmpty = gameState.gameMainGrid[mainCellPos];
+    let isSubCellEmpty = gameState.gameSubGrid[mainCellPos][subCellPos];
+    let allowableCell = gameState.gameGridAllow[mainCellPos];
 
     if (
       isMainCellEmpty === "" &&
@@ -52,37 +53,43 @@ const onClickCell = () => {
       allowableCell === "-"
     ) {
       console.log("CELL CLICKED");
-      gameState.gameGrid[mainCellPos][subCellPos] = gameState.currentPlayer; // Update marking to array
+      gameState.gameSubGrid[mainCellPos][subCellPos] = gameState.currentPlayer; // Update marking to array
+
       checkIfSubCellWon(mainCellPos);
       nextAvaliableMove(subCellPos);
       nextPlayerTurn();
     }
 
-    // if (gameState.gameGrid[mainCellPos][subCellPos] === "") {
-    //   gameState.gameGrid[mainCellPos][subCellPos] = gameState.currentPlayer;
-    //   console.log(gameState.gameGrid);
-    //   nextPlayerTurn();
-    // }
-
     checkIfMainCellWon();
+    nextAvaliableMoveColor();
+    checkIfSubCellWonColor();
     render();
   });
 };
 
 const nextAvaliableMove = (subCellPos) => {
-  gameState.gameGridMainAllow = ["", "", "", "", "", "", "", "", ""];
-  gameState.gameGridMainAllow[subCellPos] = "-";
+  gameState.gameGridAllow = ["", "", "", "", "", "", "", "", ""];
+  gameState.gameGridAllow[subCellPos] = "-";
 
   if (
-    gameState.gameGridMain[subCellPos] !== "" &&
-    gameState.gameGridMainAllow[subCellPos] === "-"
+    gameState.gameMainGrid[subCellPos] !== "" &&
+    gameState.gameGridAllow[subCellPos] === "-"
   ) {
     for (i = 0; i < 9; i++) {
-      if (gameState.gameGridMain[i] === "") {
-        gameState.gameGridMainAllow[i] = "-";
+      if (gameState.gameMainGrid[i] === "") {
+        gameState.gameGridAllow[i] = "-";
       } else {
-        gameState.gameGridMainAllow[i] = "NA";
+        gameState.gameGridAllow[i] = "NA";
       }
+    }
+  }
+};
+
+const nextAvaliableMoveColor = () => {
+  $(".mainCell").css({ "background-color": "transparent " });
+  for (let i = 0; i < 9; i++) {
+    if (gameState.gameGridAllow[i] === "-") {
+      $(".mainCell").eq(i).css({ "background-color": "yellow" });
     }
   }
 };
@@ -91,17 +98,17 @@ const checkIfSubCellWon = (mainCellPos) => {
   console.log("CHECKING IF PLAYER WIN SUBCELL...");
   let winCombList = gameState.winningCombination;
   for (let i = 0; i < gameState.winningCombination.length; i++) {
-    let a = gameState.gameGrid[mainCellPos][winCombList[i][0]];
-    let b = gameState.gameGrid[mainCellPos][winCombList[i][1]];
-    let c = gameState.gameGrid[mainCellPos][winCombList[i][2]];
+    let a = gameState.gameSubGrid[mainCellPos][winCombList[i][0]];
+    let b = gameState.gameSubGrid[mainCellPos][winCombList[i][1]];
+    let c = gameState.gameSubGrid[mainCellPos][winCombList[i][2]];
 
     if (a === "" || b === "" || c === "") {
-      console.log("NONE");
+      // console.log("NONE");
       continue;
     }
     if (a === b && b === c) {
-      gameState.gameGridMain[mainCellPos] = gameState.currentPlayer;
-      console.log("WON SUBCELL");
+      gameState.gameMainGrid[mainCellPos] = gameState.currentPlayer;
+      // console.log("WON SUBCELL");
     }
   }
 };
@@ -110,16 +117,31 @@ const checkIfMainCellWon = () => {
   console.log("CHECKING IF PLAYER WIN MAIN CELL...");
   let winCombList = gameState.winningCombination;
   for (let i = 0; i < gameState.winningCombination.length; i++) {
-    let a = gameState.gameGridMain[winCombList[i][0]];
-    let b = gameState.gameGridMain[winCombList[i][1]];
-    let c = gameState.gameGridMain[winCombList[i][2]];
+    let a = gameState.gameMainGrid[winCombList[i][0]];
+    let b = gameState.gameMainGrid[winCombList[i][1]];
+    let c = gameState.gameMainGrid[winCombList[i][2]];
 
     if (a === "" || b === "" || c === "") {
-      console.log("NONE");
+      // console.log("NONE");
       continue;
     }
     if (a === b && b === c) {
-      console.log("ULTIMATE WINNER!");
+      gameState.gameGridAllow = ["", "", "", "", "", "", "", "", ""];
+      if (gameState.playerColor === "Red") {
+        $(".message").text("Player Blue Won!");
+      } else {
+        $(".message").text("Player Red Won!");
+      }
+    }
+  }
+};
+
+const checkIfSubCellWonColor = () => {
+  for (let i = 0; i < 9; i++) {
+    if (gameState.gameMainGrid[i] === "X") {
+      $(".mainCell").eq(i).css({ "background-color": "lightskyblue" });
+    } else if (gameState.gameMainGrid[i] === "O") {
+      $(".mainCell").eq(i).css({ "background-color": "lightcoral" });
     }
   }
 };
@@ -127,20 +149,26 @@ const checkIfMainCellWon = () => {
 const nextPlayerTurn = () => {
   if (gameState.currentPlayer === "O") {
     gameState.currentPlayer = "X";
+    gameState.playerColor = "Blue";
   } else {
     gameState.currentPlayer = "O";
+    gameState.playerColor = "Red";
   }
-  $(".message").text(gameState.currentPlayer + "'s turn to play.");
+  $(".message").text(gameState.playerColor + "'s turn to play.");
 };
 
 const render = () => {
+  changeHoverColor();
   updateGrid();
+  updateGridColor();
+
+  // console.log(gameState.gameMainGrid);
+  // console.log("");
+  console.log("NEXT ALLOWABLE MOVE: ");
+  console.log(gameState.gameGridAllow);
   console.log("");
-  console.log("NEXT ALLOWABLE MOVE");
-  console.log(gameState.gameGridMainAllow);
-  console.log("");
-  console.log("CURRENT GAME STATUS");
-  console.log(gameState.gameGridMain);
+  console.log("CURRENT GAME STATUS: ");
+  console.log(gameState.gameMainGrid);
   console.log("");
   console.log("Rendered");
 };
@@ -148,38 +176,85 @@ const render = () => {
 const updateGrid = () => {
   for (let i = 0, k = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
-      $(".subCell").eq(k).text(gameState.gameGrid[i][j]);
+      // $(".subCell").eq(k).text(gameState.gameSubGrid[i][j]);
       k++;
     }
   }
 };
 
+const updateGridColor = () => {
+  let counter = 0;
+  for (let i = 0, k = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      let symbol = gameState.gameSubGrid[i][j];
+      if (symbol === "X") {
+        $(".subCell").eq(counter).css({ "background-color": "blue" });
+      } else if (symbol === "O") {
+        $(".subCell").eq(counter).css({ "background-color": "red" });
+      }
+      counter++;
+    }
+  }
+};
+
+const changeHoverColor = () => {
+  if (gameState.playerColor === "Red") {
+    $(".subCell")
+      .off("mouseenter mouseleave")
+      .hover(
+        (event) => {
+          $(event.target).addClass("hoverRed");
+        },
+        (event) => {
+          $(event.target).removeClass("hoverRed");
+        }
+      );
+  } else {
+    $(".subCell")
+      .off("mouseenter mouseleave")
+      .hover(
+        (event) => {
+          $(event.target).addClass("hoverBlue");
+        },
+        (event) => {
+          $(event.target).removeClass("hoverBlue");
+        }
+      );
+  }
+};
+
 const resetGame = () => {
   $(".restartBtn").on("click", () => {
-    gameState.currentPlayer = "O";
-    gameState.gameGrid = [
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-      ["", "", "", "", "", "", "", "", ""],
-    ];
-
-    gameState.gameGridMain = ["", "", "", "", "", "", "", "", ""];
-    gameState.gameGridMainAllow = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
-
-    $(".subCell").text("");
-    console.log("Restart!");
-    console.log(gameState);
+    //   gameState.currentPlayer = "O";
+    //   gameState.playerColor = "Red";
+    //   gameState.currentPlayer = "O";
+    //   gameState.gameSubGrid = [
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //     ["", "", "", "", "", "", "", "", ""],
+    //   ];
+    //   gameState.gameMainGrid = ["", "", "", "", "", "", "", "", ""];
+    //   gameState.gameGridAllow = ["-", "-", "-", "-", "-", "-", "-", "-", "-"];
+    //   $(".message").text("Click to Start");
+    //   $(".mainCell").css({ "background-color": "transparent" });
+    //   $(".subCell").text("").css({ "background-color": "transparent" });
+    //   nextAvaliableMoveColor();
+    //   changeHoverColor();
+    //   console.log("Restart!");
+    //   console.log(gameState);
+    location.reload(true);
   });
 };
 
 $(() => {
   setup();
+  nextAvaliableMoveColor();
   onClickCell();
   render();
   resetGame();
@@ -188,3 +263,4 @@ $(() => {
 // add in start button
 // add in timer feature??
 // add in counter for no. of moves??
+// hover to show x or o?
