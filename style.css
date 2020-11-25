@@ -10,22 +10,31 @@ h2 {
 
 .gameContainer {
   margin: auto;
-  border: 1px black solid;
-  height: 600px;
-  width: 600px;
+  border: 15px white solid;
+  height: 400px;
+  width: 400px;
   display: grid;
   grid-template-columns: repeat(3, auto);
 }
 
 .mainCell {
-  border: 1px blue solid;
+  border: 5px black solid;
   /* height: 150px;
   width: 150px; */
   /* margin: 0; */
   display: grid;
   grid-template-columns: repeat(3, auto);
+  padding: 15px;
 }
 
 .subCell {
   border: 1px black solid;
+}
+
+.hoverRed {
+  background-color: Red;
+}
+
+.hoverBlue {
+  background-color: blue;
 }
