@@ -1,3 +1,14 @@
+// click on cell
+// check if cell is empty, place marker on grid if empty, else no effect
+// check if 3 in a line, if yes => win smaller grid
+// check if 3 in a line, if yes => win main grid,
+// control next player's move
+// next player's turn
+//
+//
+// Other features?
+//
+
 const gameState = {
   currentPlayer: "O",
   playerColor: "Red",
@@ -30,12 +41,6 @@ const gameState = {
 const setup = () => {
   console.log("Setup Complete.");
 };
-
-// click on cell
-// check if cell is empty, place marker on grid if empty
-// check if 3 in a row, if yes => win smaller grid
-// control next player's move
-// next player's turn
 
 const onClickCell = () => {
   $(".subCell").on("click", (event) => {
@@ -184,7 +189,7 @@ const updateGrid = () => {
 
 const updateGridColor = () => {
   let counter = 0;
-  for (let i = 0, k = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       let symbol = gameState.gameSubGrid[i][j];
       if (symbol === "X") {
@@ -252,15 +257,24 @@ const resetGame = () => {
   });
 };
 
+const howToPlay = () => {
+  $(".instructionBtn")
+    .off("mouseenter mouseleave")
+    .hover(
+      () => {
+        $(".instructionContainer").css({ display: "flex" });
+      },
+      () => {
+        $(".instructionContainer").css({ display: "none" });
+      }
+    );
+};
+
 $(() => {
   setup();
   nextAvaliableMoveColor();
   onClickCell();
   render();
   resetGame();
+  howToPlay();
 });
-
-// add in start button
-// add in timer feature??
-// add in counter for no. of moves??
-// hover to show x or o?
