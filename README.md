@@ -1,11 +1,11 @@
-# In-Tac-Toe-Ception
+# In-tac-toe-ception
 
-A game of nested tic tac toe
+Be the first to win 3 cells in a row to win!
 
 <br>
 
 <h2>Game Link</h2>
-https://pages.git.generalassemb.ly/aukokyong/In-Tac-Toe-Ception/
+https://pages.git.generalassemb.ly/aukokyong/InTacToeCeption/
 
 <br>
 <br>

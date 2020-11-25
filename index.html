@@ -5,16 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
-    <title>In-Tac-Toe-Ception</title>
+    <title>In-tac-toe-ception</title>
 </head>
 
 <body>
-    <h1>In-Tac-Toe-Ception</h1>
+    <h1>[In-<i>[tac-toe]</i>-ception]</h1>
 
-    <h2 class="message">Click in the cell below to start</h2>
+    <h3 class="message">Click in the cell below to start</h3>
+
     <div class='gameContainer'>
         <div class='mainCell'>
             <div class="subCell" data-mainCell=0 data-subCell=0></div>
@@ -117,19 +120,62 @@
         </div>
     </div>
 
+    <h4>Be the first to win 3 cells in a row to win!</h4>
+
     <div class="instructionContainer">
         <div>
             <h2>How to Play</h2>
             <ul>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam pariatur ab ad excepturi facere
-                    nobis culpa, natus odit earum officia nisi minima exercitationem aspernatur eveniet quasi sint saepe
-                    fuga? Vero.</li><br>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, facilis eum aperiam, officia
-                    velit et sunt quia obcaecati impedit officiis aut harum! Incidunt ipsum saepe, nobis omnis aut nihil
-                    minus.</li><br>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id alias, labore excepturi quam nulla
-                    saepe ducimus nihil cupiditate veniam quia odit ratione itaque neque veritatis at pariatur
-                    temporibus voluptate fugit.</li>
+                <li>This is a 2 players game, to be played within 9 cells marked as shown.</li>
+                <table>
+                    <tr>
+                        <td>C1</td>
+                        <td>C2</td>
+                        <td>C3</td>
+                    </tr>
+                    <tr>
+                        <td>C4</td>
+                        <td>C5</td>
+                        <td>C6</td>
+                    </tr>
+                    <tr>
+                        <td>C7</td>
+                        <td>C8</td>
+                        <td>C9</td>
+                    </tr>
+                </table>
+
+
+                <li>Each cell is further divided into 9 similar squares as shown</li>
+                <table>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                    </tr>
+                </table>
+                <li>Player 1 uses "O" to mark the cells while player 2 uses "X" to mark the cells</li>
+                <li>Each player takes turn to place their mark. The cell where a player places his mark will determine
+                    where the next player can place his mark. For example, if player 1 marks “O” in the square 9 of C9,
+                    player 2 can only place his “X” anywhere within C9. If player 2 marks square 5 of C9, then the next
+                    cell that player 1 marks must be in C5. If player 1 then marks
+                    square 1 of C5, player 2 must only mark in C1</li>
+                <li>First player to have 3 in a row (vertically, horizontally or diagonally) in a cell, wins that cell.
+                </li>
+
+                <li>If a cell has been won, say C9, and if player 1 places his mark on square 9 in of cell C1 to C8,
+                    player 2 is free to choose where he wants to mark next.</li>
+                <li>First player to win 3 cells in a row, wins the game.</li>
             </ul>
         </div>
 

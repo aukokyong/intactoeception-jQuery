@@ -149,9 +149,7 @@ const checkIfWinMainCell = () => {
 const checkDrawConditionMainCell = () => {
   let findSpace = gameState.gameMainGrid.indexOf("");
   if (findSpace === -1) {
-    $(".message").text(
-      "Game draw! Press the restart button to start a new game."
-    );
+    $(".message").text("Draw! Press the restart button to start a new game.");
   }
 };
 
@@ -159,9 +157,10 @@ const listNextAvaliableMoveColor = () => {
   $(".mainCell").css({ "background-color": "transparent " });
   for (let i = 0; i < 9; i++) {
     if (gameState.gameGridAllow[i] === "-") {
-      $(".mainCell")
-        .eq(i)
-        .css({ "background-color": gameState.nextMoveBgColor });
+      $(".mainCell").eq(i).css({
+        "background-color": gameState.nextMoveBgColor,
+        transition: "background-color 0.5s ease",
+      });
     }
   }
 };
@@ -169,9 +168,15 @@ const listNextAvaliableMoveColor = () => {
 const SubCellWinColor = () => {
   for (let i = 0; i < 9; i++) {
     if (gameState.gameMainGrid[i] === "X") {
-      $(".mainCell").eq(i).css({ "background-color": gameState.xCellBgColor });
+      $(".mainCell").eq(i).css({
+        "background-color": gameState.xCellBgColor,
+        transition: "background-color 1s ease",
+      });
     } else if (gameState.gameMainGrid[i] === "O") {
-      $(".mainCell").eq(i).css({ "background-color": gameState.oCellBgColor });
+      $(".mainCell").eq(i).css({
+        "background-color": gameState.oCellBgColor,
+        transition: "background-color 1s ease",
+      });
     }
   }
 };
