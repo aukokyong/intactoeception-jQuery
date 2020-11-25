@@ -4,6 +4,12 @@ A game of nested tic tac toe
 
 <br>
 
+<h2>Game Link</h2>
+https://pages.git.generalassemb.ly/aukokyong/In-Tac-Toe-Ception/
+
+<br>
+<br>
+
 <h2> Game Objective</h2>
 
 First player to get the 3 in a row to win!

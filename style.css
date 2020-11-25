@@ -33,11 +33,11 @@ h2 {
   border: 1px black solid;
 }
 
-.hoverRed {
+.hoverPlayerO {
   background-color: Red;
 }
 
-.hoverBlue {
+.hoverPlayerX {
   background-color: blue;
 }
 
