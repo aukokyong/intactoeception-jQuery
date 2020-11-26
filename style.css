@@ -97,6 +97,7 @@
   /* border: 1px black solid; */
   text-align: center;
   margin-top: 40px;
+  font-family: "Architects Daughter", cursive;
 }
 
 .closeBtn {
@@ -148,8 +149,9 @@
 }
 
 .instructionContainer > div > ul {
-  padding-left: 40px;
   /* border: 1px black solid; */
+  padding-left: 40px;
+  padding-bottom: 20px;
 }
 .instructionContainer > div > ul > li {
   text-align: justify;

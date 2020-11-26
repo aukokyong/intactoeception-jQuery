@@ -1,13 +1,9 @@
 // click on cell
 // check if cell is empty, place marker on grid if empty, else no effect
-// check if 3 in a line, if yes => win smaller grid
-// check if 3 in a line, if yes => win main grid,
+// check if 3 in a line on sub-grid, if yes => win sub-grid
 // control next player's move
 // next player's turn
-//
-//
-// Other features?
-//
+// check if 3 in a line on main grid, if yes => win main grid,
 
 const gameState = {
   currentPlayer: "O",
@@ -138,9 +134,9 @@ const checkIfWinMainCell = () => {
       gameState.gameGridAllow = ["", "", "", "", "", "", "", "", ""];
       gameState.gameOn = false;
       if (gameState.currentPlayer === "X") {
-        $(".message").text(`Player ${gameState.oColor} Won!`);
+        $(".message").text(`${gameState.oColor} Won!`);
       } else {
-        $(".message").text(`Player ${gameState.xColor}  Won!`);
+        $(".message").text(`${gameState.xColor}  Won!`);
       }
     }
   }
