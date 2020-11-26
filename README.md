@@ -4,8 +4,8 @@ Be the first to win 3 cells in a row!
 
 <br>
 
-<h2>Game Link</h2>
-https://pages.git.generalassemb.ly/aukokyong/InTacToeCeption/
+<h2>Game Page</h2>
+https://pages.git.generalassemb.ly/aukokyong/intactoeception/
 
 <br>
 <br>
