@@ -257,16 +257,49 @@ const resetGameBtn = () => {
 };
 
 const howToPlayBtn = () => {
-  $(".instructionBtn")
-    .off("mouseenter mouseleave")
-    .hover(
-      () => {
-        $(".instructionContainer").css({ display: "flex" });
-      },
-      () => {
-        $(".instructionContainer").css({ display: "none" });
-      }
-    );
+  $(".instructionBtn").on("click", () => {
+    $(".instructionContainer").css({
+      visibility: "visible",
+    });
+    $(".tagline").css({
+      visibility: "hidden",
+    });
+    $(".gameContainer").css({
+      visibility: "hidden",
+    });
+    $(".message").css({
+      visibility: "hidden",
+    });
+    $(".restartBtn").css({
+      visibility: "hidden",
+    });
+    $(".instructionBtn").css({
+      visibility: "hidden",
+    });
+  });
+};
+
+const closeBtn = () => {
+  $(".closeBtn").on("click", () => {
+    $(".instructionContainer").css({
+      visibility: "hidden",
+    });
+    $(".tagline").css({
+      visibility: "visible",
+    });
+    $(".gameContainer").css({
+      visibility: "visible",
+    });
+    $(".message").css({
+      visibility: "visible",
+    });
+    $(".restartBtn").css({
+      visibility: "visible",
+    });
+    $(".instructionBtn").css({
+      visibility: "visible",
+    });
+  });
 };
 
 $(() => {
@@ -276,4 +309,5 @@ $(() => {
   render();
   resetGameBtn();
   howToPlayBtn();
+  closeBtn();
 });
