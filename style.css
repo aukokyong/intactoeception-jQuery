@@ -8,6 +8,9 @@
     font-size: 1.5em;
   }
 }
+body {
+  background-color: aliceblue;
+}
 
 .title {
   /* border: 1px black solid; */
